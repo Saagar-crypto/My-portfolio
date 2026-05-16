@@ -3,280 +3,312 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Interactive Portfolio</title>
+    <title>Extraordinary React & SQL Portfolio</title>
     
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --bg-color: #fdfdfd;
-            --bg-light: #f4f6f9;
-            --text-color: #333333;
-            --card-bg: #ffffff;
-            --accent-color: #007bff;
-            --header-bg: #1a252f;
-        }
-
-        .dark-mode {
-            --bg-color: #121212;
-            --bg-light: #1e1e1e;
-            --text-color: #e0e0e0;
-            --card-bg: #1d1d1d;
-            --accent-color: #3700b3;
+            --bg-main: #0b0f19;
+            --bg-card: #151c2c;
+            --accent-glow: #38bdf8;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --terminal-bg: #05070c;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: var(--bg-color);
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            padding-bottom: 60px;
         }
 
         .container {
-            width: 85%;
+            width: 90%;
             max-width: 1100px;
             margin: auto;
-            overflow: hidden;
         }
 
-        .section-padding {
-            padding: 60px 0;
-        }
-
-        .bg-light {
-            background-color: var(--bg-light);
-        }
-
-        hr {
-            width: 50px;
-            height: 3px;
-            background-color: #007bff;
-            border: none;
-            margin: 10px 0 30px 0;
-        }
-
+        /* Hero Section Styling */
         header {
-            background: var(--header-bg);
-            color: #fff;
-            padding: 20px 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        header .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        header nav ul {
-            list-style: none;
-            display: flex;
-            align-items: center;
-        }
-
-        header nav ul li {
-            margin-left: 20px;
-        }
-
-        header nav ul li a {
-            color: #fff;
-            text-decoration: none;
-        }
-
-        .btn-toggle {
-            background: #2c3e50;
-            border: none;
-            color: white;
-            padding: 6px 12px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .hero {
-            background: linear-gradient(rgba(26, 37, 47, 0.85), rgba(26, 37, 47, 0.85)), url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1000') no-repeat center center/cover;
-            height: 40vh;
-            color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            padding: 80px 0 40px 0;
             text-align: center;
+            border-bottom: 1px solid #1e293b;
         }
 
-        .hero h2 {
-            font-size: 2.5rem;
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             margin-bottom: 10px;
         }
 
-        #typing-text::after {
-            content: '|';
-            animation: blink 0.7s infinite;
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            margin-bottom: 20px;
         }
 
-        @keyframes blink { 50% { opacity: 0; } }
-
-        .skills-grid {
-            display: flex;
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .skill-card {
-            flex: 1;
-            background: var(--card-bg);
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            border-top: 4px solid #007bff;
-        }
-
-        .project-list {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .project-item {
-            background: var(--card-bg);
+        /* Interactive SQL Terminal Box */
+        .terminal-zone {
+            background-color: var(--terminal-bg);
+            border: 1px solid #334155;
+            border-radius: 12px;
             padding: 20px;
-            border-left: 5px solid #007bff;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        .project-item .date {
+        .terminal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #64748b;
+            font-family: 'JetBrains Mono', monospace;
             font-size: 0.85rem;
-            color: #7f8c8d;
-            margin-bottom: 8px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #1e293b;
+            padding-bottom: 10px;
         }
 
-        footer {
-            background: var(--header-bg);
-            color: #fff;
-            text-align: center;
-            padding: 20px 0;
-            margin-top: 40px;
+        .terminal-title {
+            color: var(--accent-glow);
+            font-weight: bold;
         }
 
-        @media(max-width: 768px) {
-            header .container {
-                flex-direction: column;
-            }
-            header nav ul {
-                margin-top: 10px;
-            }
-            .skills-grid {
-                flex-direction: column;
-            }
+        .sql-input-row {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .terminal-prompt {
+            color: #f43f5e;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: bold;
+        }
+
+        .sql-textarea {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: #38bdf8;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.05rem;
+            outline: none;
+            resize: none;
+        }
+
+        .btn-run {
+            background: linear-gradient(135deg, #38bdf8, #2563eb);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+
+        .btn-run:hover {
+            transform: scale(1.03);
+        }
+
+        /* Dynamic Grid Layout controlled by React */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .portfolio-card {
+            background-color: var(--bg-card);
+            border: 1px solid #1e293b;
+            border-radius: 12px;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-glow);
+            box-shadow: 0 5px 20px rgba(56, 189, 248, 0.15);
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: #0c4a6e;
+            color: #38bdf8;
+            font-size: 0.75rem;
+            font-weight: bold;
+            padding: 4px 10px;
+            border-radius: 50px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .card-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .card-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .error-msg {
+            color: #ef4444;
+            font-family: 'JetBrains Mono', monospace;
+            margin-top: 10px;
+        }
+
+        .quick-hints {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .hint-pill {
+            background: #1e293b;
+            padding: 2px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            color: #cbd5e1;
+            margin-right: 5px;
+            display: inline-block;
+            margin-top: 5px;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="container">
-            <h1>Student Portfolio</h1>
-            <nav>
-                <ul>
-                    <li><a href="#about">About Me</a></li>
-                    <li><a href="#skills">Skills</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><button id="theme-toggle" class="btn-toggle">🌙 Mode</button></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <div id="root"></div>
 
-    <section class="hero">
-        <div class="container">
-            <h2>I am a <span id="typing-text" data-words='["Student Leader", "Tech Enthusiast", "Problem Solver"]'></span></h2>
-            <p>Welcome to my interactive webpage built with HTML, CSS, and JavaScript.</p>
-        </div>
-    </section>
+    <script type="text/babel">
+        const { useState, useEffect } = React;
 
-    <section id="about" class="section-padding">
-        <div class="container">
-            <h2>About Me</h2>
-            <hr>
-            <p>I am a disciplined student with a passion for managing events and exploring technology. At school, I regularly work as a student organizer, coordinating daily programs and addressing audiences. In my free time, I love diving into hands-on electronics projects like Arduino and building custom software solutions.</p>
-        </div>
-    </section>
+        // 1. Mock SQL Database setup inside JavaScript Memory
+        const DATABASE_TABLES = {
+            projects: [
+                { id: 1, category: 'ELECTRONICS', title: 'Smart Automated Lid System', description: 'Programmed an Arduino Uno with an ultrasonic distance detection module and high-torque micro-servo components to manipulate mechanical structures automated on situational positioning variables.' },
+                { id: 2, category: 'LEADERSHIP', title: 'Student Assembly Management Console', description: 'Coordinated operational flow-structures for educational programming platforms. Structured presentation arrays, scheduled timing loops, and managed live student presentations smoothly.' },
+                { id: 3, category: 'SOFTWARE', title: 'Dynamic Micro-System Interface', description: 'Constructed an adaptive cross-platform custom interface environment optimizing computing footprints for processing execution on restrictive core architectures.' }
+            ]
+        };
 
-    <section id="skills" class="section-padding bg-light">
-        <div class="container">
-            <h2>My Skills</h2>
-            <hr>
-            <div class="skills-grid">
-                <div class="skill-card">
-                    <h3>Leadership</h3>
-                    <p>Event hosting, public speaking, and managing school assembly programs smoothly.</p>
+        function App() {
+            // React State management tracking user SQL inputs and current query outputs
+            const [sqlQuery, setSqlQuery] = useState("SELECT * FROM projects;");
+            const [displayData, setDisplayData] = useState([]);
+            const [error, setError] = useState("");
+
+            // Execute the initial query automatically when the page boots up
+            useEffect(() => {
+                executeSQL(sqlQuery);
+            }, []);
+
+            // Simplified parsing engine that interprets native database statements
+            const executeSQL = (queryText) => {
+                setError("");
+                const cleanQuery = queryText.replace(/;\s*$/, "").trim().toUpperCase();
+
+                if (cleanQuery === "SELECT * FROM PROJECTS") {
+                    setDisplayData(DATABASE_TABLES.projects);
+                } else if (cleanQuery.includes("WHERE CATEGORY =")) {
+                    // Custom evaluation logic parsing individual category lookups
+                    try {
+                        const match = queryText.match(/category\s*=\s*['"]([^'"]+)['"]/i);
+                        if (match && match[1]) {
+                            const targetCat = match[1].toUpperCase();
+                            const filtered = DATABASE_TABLES.projects.filter(p => p.category === targetCat);
+                            setDisplayData(filtered);
+                        } else {
+                            throw new Error("Syntax error near WHERE clause properties.");
+                        }
+                    } catch (e) {
+                        setError("SQL Execution Fault: Invalid conditional syntax attributes.");
+                    }
+                } else {
+                    setError("SQL Error: Table execution target not recognized. Try typing exactly: SELECT * FROM projects;");
+                }
+            };
+
+            return (
+                <div className="container">
+                    <header>
+                        <h1>Saagar | Tech-portfolio</h1>
+                        <p className="subtitle">Driven by React Interfaces & Structural Database Schemas</p>
+                    </header>
+
+                    {/* Interactive SQL Compiler Section */}
+                    <div className="terminal-zone">
+                        <div className="terminal-header">
+                            <div>💾 DATABASE TERMINAL: saagar_db_console</div>
+                            <div className="terminal-title">STATUS: LIVE CONNECTED</div>
+                        </div>
+                        <div className="sql-input-row">
+                            <span className="terminal-prompt">SQL&gt;</span>
+                            <textarea 
+                                className="sql-textarea"
+                                rows="2"
+                                value={sqlQuery}
+                                onChange={(e) => setSqlQuery(e.target.value)}
+                            />
+                            <button className="btn-run" onClick={() => executeSQL(sqlQuery)}>RUN QUERY</button>
+                        </div>
+                        
+                        {error && <div className="error-msg">{error}</div>}
+                        
+                        <div className="quick-hints">
+                            <span>💡 Quick Filters (Click to copy query):</span><br />
+                            <span className="hint-pill" onClick={() => setSqlQuery("SELECT * FROM projects;")}>SELECT * FROM projects;</span>
+                            <span className="hint-pill" onClick={() => setSqlQuery("SELECT * FROM projects WHERE category = 'Electronics';")}>WHERE category = 'Electronics';</span>
+                            <span className="hint-pill" onClick={() => setSqlQuery("SELECT * FROM projects WHERE category = 'Leadership';")}>WHERE category = 'Leadership';</span>
+                        </div>
+                    </div>
+
+                    {/* React dynamically builds these layout boxes inside the UI layout matrix */}
+                    <main>
+                        <h2 style={{ fontSize: '1.5rem', marginBottom: '10px' }}>
+                            Query Output Data Stream ({displayData.length} records found)
+                        </h2>
+                        
+                        <div className="cards-grid">
+                            {displayData.map((project) => (
+                                <div className="portfolio-card" key={project.id}>
+                                    <span className="tag">{project.category}</span>
+                                    <div className="card-title">{project.title}</div>
+                                    <div className="card-desc">{project.description}</div>
+                                </div>
+                            ))}
+                        </div>
+                    </main>
                 </div>
-                <div class="skill-card">
-                    <h3>Electronics</h3>
-                    <p>Working with microcontrollers, wiring hardware modules, and debugging automated devices.</p>
-                </div>
-                <div class="skill-card">
-                    <h3>Organization</h3>
-                    <p>Planning schedules, coordinating with team members, and executing structural goals.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="projects" class="section-padding">
-        <div class="container">
-            <h2>Projects & Experience</h2>
-            <hr>
-            <div class="project-list">
-                <div class="project-item">
-                    <h4>Student Event Organizer</h4>
-                    <p class="date">Ongoing</p>
-                    <p>Responsible for managing formal school programs, presenting news headlines, and structuring schedules for campus presentations.</p>
-                </div>
-                <div class="project-item">
-                    <h4>Smart Automated Lid System</h4>
-                    <p class="date">Hardware Project</p>
-                    <p>Designed and programmed a physical hardware prototype that uses an ultrasonic sensor to detect motion and a servo motor to automatically operate a lid.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <p>&copy; 2026 | All-in-One Clean Format File</p>
-    </footer>
-
-    <script>
-        // Dark/Light Mode logic
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        themeToggleBtn.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            themeToggleBtn.innerText = document.body.classList.contains('dark-mode') ? "☀️ Light" : "🌙 Dark";
-        });
-
-        // Typing Effect logic
-        const typingSpan = document.getElementById('typing-text');
-        const wordsArray = JSON.parse(typingSpan.getAttribute('data-words'));
-        let wordIdx = 0, charIdx = 0, isDeleting = false;
-
-        function type() {
-            const fullWord = wordsArray[wordIdx];
-            typingSpan.innerText = isDeleting ? fullWord.substring(0, charIdx - 1) : fullWord.substring(0, charIdx + 1);
-            charIdx = isDeleting ? charIdx - 1 : charIdx + 1;
-
-            let speed = isDeleting ? 50 : 120;
-            if (!isDeleting && charIdx === fullWord.length) { speed = 2000; isDeleting = true; }
-            else if (isDeleting && charIdx === 0) { isDeleting = false; wordIdx = (wordIdx + 1) % wordsArray.length; speed = 400; }
-            
-            setTimeout(type, speed);
+            );
         }
 
-        document.addEventListener('DOMContentLoaded', () => setTimeout(type, 500));
+        // Mount the React Application into the DOM execution thread
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
     </script>
 </body>
 </html>
